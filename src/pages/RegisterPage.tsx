@@ -15,8 +15,6 @@ export default function RegisterPage({ onNavigate }: RegisterPageProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const [phoneFocused, setPhoneFocused] = useState(false);
-  const [passwordFocused, setPasswordFocused] = useState(false);
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -195,17 +193,13 @@ export default function RegisterPage({ onNavigate }: RegisterPageProps) {
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              onFocus={() => setPhoneFocused(true)}
-              onBlur={() => setPhoneFocused(false)}
               className="w-full px-3 sm:px-4 py-2 sm:py-2.5 bg-white border border-[#ddd] rounded-xl text-sm sm:text-base text-[#111] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan focus:border-transparent"
               placeholder="09123456789"
               maxLength={11}
             />
-            {phoneFocused && (
-              <p className="mt-1.5 sm:mt-2 text-xs text-[#666] leading-tight">
-                Must be exactly 11 digits.
-              </p>
-            )}
+            <p className="mt-1.5 sm:mt-2 text-xs text-[#666] leading-tight">
+              Must be exactly 11 digits. Staff can contact you when your table is ready.
+            </p>
           </div>
 
           <div>
@@ -218,16 +212,12 @@ export default function RegisterPage({ onNavigate }: RegisterPageProps) {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              onFocus={() => setPasswordFocused(true)}
-              onBlur={() => setPasswordFocused(false)}
               className="w-full px-3 sm:px-4 py-2 sm:py-2.5 bg-white border border-[#ddd] rounded-xl text-sm sm:text-base text-[#111] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan focus:border-transparent"
               placeholder="Enter password"
             />
-            {passwordFocused && (
-              <p className="mt-1.5 sm:mt-2 text-xs text-[#666] leading-tight">
-                Must be at least 8 characters with uppercase, lowercase, number, and special character
-              </p>
-            )}
+            <p className="mt-1.5 sm:mt-2 text-xs text-[#666] leading-tight">
+              Must be at least 8 characters with uppercase, lowercase, number, and special character
+            </p>
           </div>
 
           <div>
