@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { User } from './lib/supabase';
-import { onAuthStateChange } from './lib/auth';
+import { onAuthStateChange, getCurrentUser } from './lib/auth';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -16,7 +16,32 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
+
+    const initAuth = async () => {
+      const profile = await getCurrentUser();
+
+      if (!mounted) return;
+
+      setUser(profile);
+      setLoading(false);
+
+      if (profile) {
+        if (profile.role === 'customer') {
+          setCurrentPage('customer');
+        } else if (profile.role === 'staff') {
+          setCurrentPage('staff');
+        } else if (profile.role === 'manager') {
+          setCurrentPage('manager');
+        }
+      }
+    };
+
+    initAuth();
+
     const { data: authListener } = onAuthStateChange((profile) => {
+      if (!mounted) return;
+
       setUser(profile);
       setLoading(false);
 
@@ -34,6 +59,7 @@ function App() {
     });
 
     return () => {
+      mounted = false;
       authListener?.subscription?.unsubscribe();
     };
   }, []);
