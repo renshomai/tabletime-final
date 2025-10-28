@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+    font-family: 'Alexandria', sans-serif;
+    background-color: #fff8f0;
+  }
+
+  input,
+  textarea,
+  button,
+  select {
+    @apply focus:outline-none;
+    font-family: 'Alexandria', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bakbak One', cursive;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply w-full px-4 py-3 text-xl border-none rounded-xl text-white bg-[#00b8e6] font-normal cursor-pointer transition-all;
+    font-family: 'Alexandria', sans-serif;
+  }
+
+  .btn-primary:hover {
+    background-color: #009dc7;
+  }
+
+  .btn-cancel {
+    @apply w-full px-4 py-3 text-xl border-none rounded-xl font-normal cursor-pointer transition-all;
+    background-color: #ffb3b3;
+    color: #990000;
+    font-family: 'Alexandria', sans-serif;
+  }
+
+  .btn-cancel:hover {
+    background-color: #ff9999;
+  }
+
+  .container-main {
+    width: 100%;
+    max-width: 360px;
+    padding: 40px 25px 20px;
+    text-align: center;
+    background-color: #fff8f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 90vh;
+  }
+
+  .title-main {
+    font-family: 'Bakbak One', cursive;
+    font-size: 42px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 10px;
+  }
+
+  .subtitle-main {
+    font-size: 22px;
+    font-weight: 500;
+    color: #222;
+    margin-bottom: 4px;
+  }
+
+  .position-number {
+    font-size: 54px;
+    font-weight: 800;
+    color: #00b8e6;
+    letter-spacing: 1px;
+    margin: 6px 0 8px;
+  }
+
+  .wait-text {
+    font-size: 17px;
+    color: #444;
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .bg-cream {
+    background-color: #fff8f0;
+  }
+
+  .text-cyan {
+    color: #00b8e6;
+  }
+
+  .bg-cyan {
+    background-color: #00b8e6;
+  }
+
+  .bg-cyan-dark {
+    background-color: #009dc7;
+  }
+}
