@@ -198,7 +198,7 @@ export default function RegisterPage({ onNavigate }: RegisterPageProps) {
               maxLength={11}
             />
             <p className="mt-1.5 sm:mt-2 text-xs text-[#666] leading-tight">
-              Must be exactly 11 digits. Staff can contact you when your table is ready.
+              Must be exactly 11 digits.
             </p>
           </div>
 
