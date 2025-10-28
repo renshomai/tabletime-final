@@ -3,13 +3,13 @@ import {
   Clock,
   LogOut,
   Users,
-  QrCode,
   Bell,
   History,
   X,
   CheckCircle,
   AlertCircle,
 } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 import { User, QueueEntry } from '../lib/supabase';
 import { signOut } from '../lib/auth';
 import {
@@ -257,7 +257,12 @@ function ActiveQueueCard({
       <p className="text-base sm:text-xl text-[#666] mb-2">Estimated wait: {entry.estimated_wait_time} minutes</p>
       <p className="text-sm sm:text-base text-[#444] mb-4 sm:mb-6">Party of {entry.party_size}</p>
       <div className="bg-white rounded-lg p-4 sm:p-6 mb-4 sm:mb-6 inline-block mx-auto">
-        <QrCode className="h-24 w-24 sm:h-32 sm:w-32 mx-auto text-[#111]" />
+        <QRCodeSVG
+          value={entry.qr_code}
+          size={128}
+          level="H"
+          className="mx-auto"
+        />
         <p className="text-[#444] text-xs sm:text-sm mt-2 sm:mt-3 font-mono break-all">{entry.qr_code}</p>
       </div>
       <div className="flex justify-center">
