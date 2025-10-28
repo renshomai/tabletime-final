@@ -49,7 +49,8 @@ export default function CustomerDashboard({ user }: CustomerDashboardProps) {
       loadData();
     });
 
-    const interval = setInterval(loadData, 30000);
+    // Refresh queue positions more frequently (every 5 seconds)
+    const interval = setInterval(loadData, 5000);
 
     return () => {
       unsubscribe();
