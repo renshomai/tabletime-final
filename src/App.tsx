@@ -19,20 +19,29 @@ function App() {
     let mounted = true;
 
     const initAuth = async () => {
-      const profile = await getCurrentUser();
+      try {
+        const profile = await getCurrentUser();
 
-      if (!mounted) return;
+        if (!mounted) return;
 
-      setUser(profile);
-      setLoading(false);
+        console.log('Initial auth check - profile:', profile);
+        setUser(profile);
+        setLoading(false);
 
-      if (profile) {
-        if (profile.role === 'customer') {
-          setCurrentPage('customer');
-        } else if (profile.role === 'staff') {
-          setCurrentPage('staff');
-        } else if (profile.role === 'manager') {
-          setCurrentPage('manager');
+        if (profile) {
+          console.log('Redirecting to:', profile.role);
+          if (profile.role === 'customer') {
+            setCurrentPage('customer');
+          } else if (profile.role === 'staff') {
+            setCurrentPage('staff');
+          } else if (profile.role === 'manager') {
+            setCurrentPage('manager');
+          }
+        }
+      } catch (error) {
+        console.error('Error in initAuth:', error);
+        if (mounted) {
+          setLoading(false);
         }
       }
     };
@@ -42,10 +51,12 @@ function App() {
     const { data: authListener } = onAuthStateChange((profile) => {
       if (!mounted) return;
 
+      console.log('Auth state changed - profile:', profile);
       setUser(profile);
       setLoading(false);
 
       if (profile) {
+        console.log('Redirecting to:', profile.role);
         if (profile.role === 'customer') {
           setCurrentPage('customer');
         } else if (profile.role === 'staff') {
@@ -54,6 +65,7 @@ function App() {
           setCurrentPage('manager');
         }
       } else {
+        console.log('No profile, going to landing');
         setCurrentPage('landing');
       }
     });
