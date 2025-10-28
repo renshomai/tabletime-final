@@ -4,7 +4,7 @@ import { predictWaitTime } from './aiPrediction';
 export async function joinQueue(customerId: string, partySize: number): Promise<QueueEntry> {
   const waitingCount = await getWaitingCount();
 
-  // Check if queue is full (max 8 tables)
+  // Check if queue is full (max 8 people in queue)
   if (waitingCount >= 8) {
     const position = waitingCount + 1;
     const estimatedWaitTime = await predictWaitTime(partySize, position);
@@ -30,6 +30,9 @@ export async function joinQueue(customerId: string, partySize: number): Promise<
 
   if (error) throw error;
 
+  // Recalculate positions for all entries based on joined_at order
+  await reorderQueue();
+
   await logWaitTimePrediction(data.id, estimatedWaitTime, position);
 
   await logActivity(customerId, 'join_queue', 'queue_entry', data.id, {
@@ -37,7 +40,16 @@ export async function joinQueue(customerId: string, partySize: number): Promise<
     position: position,
   });
 
-  return data;
+  // Fetch the updated entry with correct position
+  const { data: updatedData, error: fetchError } = await supabase
+    .from('queue_entries')
+    .select('*')
+    .eq('id', data.id)
+    .single();
+
+  if (fetchError) throw fetchError;
+
+  return updatedData;
 }
 
 export async function getQueueEntry(queueEntryId: string): Promise<QueueEntry | null> {
@@ -67,7 +79,7 @@ export async function getActiveQueue(): Promise<QueueEntry[]> {
     .from('queue_entries')
     .select('*')
     .in('status', ['waiting', 'notified'])
-    .order('position', { ascending: true });
+    .order('joined_at', { ascending: true });
 
   if (error) throw error;
   return data || [];
@@ -234,14 +246,24 @@ export async function completeReservation(reservationId: string, staffId: string
 }
 
 async function reorderQueue(): Promise<void> {
-  const activeQueue = await getActiveQueue();
+  // Get all active queue entries ordered by joined_at (first come, first served)
+  const { data: activeQueue, error } = await supabase
+    .from('queue_entries')
+    .select('*')
+    .in('status', ['waiting', 'notified'])
+    .order('joined_at', { ascending: true });
 
+  if (error) throw error;
+  if (!activeQueue) return;
+
+  // Update positions based on join order
   for (let i = 0; i < activeQueue.length; i++) {
     const entry = activeQueue[i];
-    if (entry.position !== i + 1) {
+    const newPosition = i + 1;
+    if (entry.position !== newPosition) {
       await supabase
         .from('queue_entries')
-        .update({ position: i + 1 })
+        .update({ position: newPosition })
         .eq('id', entry.id);
     }
   }
