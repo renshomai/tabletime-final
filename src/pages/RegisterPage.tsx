@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Clock, AlertCircle } from 'lucide-react';
 import { signUp } from '../lib/auth';
-import { UserRole } from '../lib/supabase';
 
 interface RegisterPageProps {
   onNavigate: (page: 'landing' | 'login' | 'register' | 'customer' | 'staff' | 'manager') => void;

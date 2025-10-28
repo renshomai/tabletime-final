@@ -94,21 +94,21 @@ async function getReservationStats(startDate: Date): Promise<{
   completed: number;
   cancelled: number;
 }> {
-  const { data: completed } = await supabase
+  const { count: completedCount } = await supabase
     .from('queue_entries')
     .select('*', { count: 'exact', head: true })
     .eq('status', 'seated')
     .gte('joined_at', startDate.toISOString());
 
-  const { data: cancelled } = await supabase
+  const { count: cancelledCount } = await supabase
     .from('queue_entries')
     .select('*', { count: 'exact', head: true })
     .eq('status', 'cancelled')
     .gte('joined_at', startDate.toISOString());
 
   return {
-    completed: completed || 0,
-    cancelled: cancelled || 0,
+    completed: completedCount || 0,
+    cancelled: cancelledCount || 0,
   };
 }
 

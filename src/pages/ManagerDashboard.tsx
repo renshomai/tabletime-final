@@ -12,7 +12,6 @@ import {
 import { User } from '../lib/supabase';
 import { signOut } from '../lib/auth';
 import { getDashboardAnalytics, getActivityLogs } from '../lib/analyticsService';
-import { getTableUtilization } from '../lib/tableService';
 import { getPredictionAccuracy } from '../lib/aiPrediction';
 
 interface ManagerDashboardProps {
@@ -164,7 +163,6 @@ function MetricCard({
   title,
   value,
   icon,
-  color,
   trend,
 }: {
   title: string;

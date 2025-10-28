@@ -58,11 +58,11 @@ function App() {
       case 'register':
         return <RegisterPage onNavigate={setCurrentPage} />;
       case 'customer':
-        return <CustomerDashboard user={user!} onNavigate={setCurrentPage} />;
+        return <CustomerDashboard user={user!} onNavigate={(page) => setCurrentPage(page as Page)} />;
       case 'staff':
-        return <StaffDashboard user={user!} onNavigate={setCurrentPage} />;
+        return <StaffDashboard user={user!} onNavigate={(page) => setCurrentPage(page as Page)} />;
       case 'manager':
-        return <ManagerDashboard user={user!} onNavigate={setCurrentPage} />;
+        return <ManagerDashboard user={user!} onNavigate={(page) => setCurrentPage(page as Page)} />;
       default:
         return <LandingPage onNavigate={setCurrentPage} />;
     }

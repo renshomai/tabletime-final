@@ -227,7 +227,6 @@ function StatCard({
   title,
   value,
   icon,
-  color,
 }: {
   title: string;
   value: number;

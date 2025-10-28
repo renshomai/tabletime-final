@@ -6,7 +6,6 @@ import {
   QrCode,
   Bell,
   History,
-  Plus,
   X,
   CheckCircle,
   AlertCircle,
@@ -229,7 +228,7 @@ function ActiveQueueCard({
   onCancel: (id: string) => void;
   seatedMessage?: string;
 }) {
-  const [queueLength, setQueueLength] = useState(0);
+  const [, setQueueLength] = useState(0);
 
   useEffect(() => {
     getActiveQueue().then((queue) => setQueueLength(queue.length));
@@ -338,7 +337,7 @@ function TabButton({
   );
 }
 
-function QueueTab({ entries, user }: { entries: QueueEntry[]; user: User }) {
+function QueueTab({ entries }: { entries: QueueEntry[]; user: User }) {
   const activeEntries = entries.filter(
     (entry) => entry.status === 'waiting' || entry.status === 'notified'
   );
