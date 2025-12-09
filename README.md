@@ -26,15 +26,6 @@ TableTime is an AI-powered restaurant queue management system that enables custo
 - **Activity Logs** - Monitor all system activities
 - **AI Accuracy Tracking** - Monitor prediction model performance
 
-## Tech Stack
-
-- **Frontend**: React 18 + TypeScript + Vite
-- **Styling**: Tailwind CSS
-- **Database**: Supabase (PostgreSQL)
-- **Authentication**: Supabase Auth
-- **Icons**: Lucide React
-- **AI/ML**: Custom wait time prediction algorithm
-
 ## Database Schema
 
 The system uses Supabase with the following main tables:
