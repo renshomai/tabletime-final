@@ -135,3 +135,52 @@
     background-color: #009dc7;
   }
 }
+
+/* Remove Bolt branding and watermarks */
+[class*="bolt"],
+[id*="bolt"],
+[class*="watermark"],
+[id*="watermark"],
+[class*="badge"],
+[id*="badge"],
+[class*="Bolt"],
+[id*="Bolt"],
+.bolt-badge,
+.bolt-watermark,
+.bolt-logo,
+.bolt-branding,
+#bolt-badge,
+#bolt-watermark,
+#bolt-logo,
+[data-testid="bolt"],
+[data-testid*="badge"],
+[data-testid*="watermark"],
+.powered-by-bolt,
+.bolt-powered,
+div[style*="bolt"],
+div[style*="Bolt"],
+span[style*="bolt"],
+span[style*="Bolt"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hide any iframe or embed that might contain Bolt branding */
+iframe[src*="bolt"],
+iframe[src*="Bolt"],
+embed[src*="bolt"],
+embed[src*="Bolt"] {
+  display: none !important;
+}
+
+/* Additional catch-all for Bolt-related content */
+[class*="studio"],
+[class*="Studio"] {
+  /* More selective to avoid hiding legitimate content */
+}
